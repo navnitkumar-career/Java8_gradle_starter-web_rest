@@ -1,0 +1,59 @@
+plugins {
+    id "java"
+    id "org.springframework.boot" version "2.1.4.RELEASE"
+    id "io.spring.dependency-management" version "1.0.7.RELEASE"
+    id "com.github.ben-manes.versions" version "0.21.0"
+}
+
+description = " Проект для быстрого старта с Java 8"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    // Boot
+    implementation(
+            "org.springframework.boot:spring-boot-starter",
+            "org.springframework.boot:spring-boot-starter-web"
+    )
+    implementation(
+            "org.springframework.boot:spring-boot-starter-thymeleaf",
+            "org.springframework.boot:spring-boot-starter-security"
+    )
+
+    //DataBase
+    implementation("com.h2database:h2")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // implementation("org.postgresql:postgresql:42.2.2")
+
+    // Tests
+    testImplementation("org.springframework.boot:spring-boot-starter-test") { exclude module: "junit" }
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter-api",
+            "io.github.benas:random-beans:3.8.0",
+            "io.github.glytching:junit-extensions:2.3.0"
+    )
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+    // Lombok
+    compileOnly("org.projectlombok:lombok")
+    testCompileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
+    // Other
+    implementation("org.jetbrains:annotations:17.0.0")
+    implementation("org.tuxdude.logback.extensions:logback-colorizer:1.0.1")
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines "junit-jupiter"
+        excludeEngines "junit-vintage"
+    }
+}
